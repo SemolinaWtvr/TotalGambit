@@ -1,0 +1,25 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "back-end of TotalGambit's App",
+  "license": "ISC",
+  "author": "SemolinaWtvr",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon --env-file=.env src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "argon2": "^0.44.0",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "jwt-utils": "^1.0.5",
+    "morgan": "^1.10.1",
+    "sequelize": "^6.37.7",
+    "tedious": "^19.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
