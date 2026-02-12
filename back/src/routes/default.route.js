@@ -9,5 +9,8 @@ defaultRouter.route('/default/login')
 defaultRouter.route('/default/register')
     .post(defaultController.register);
 
+defaultRouter.route('/default/delete')
+    .delete(defaultController.delete);
+
 
 export default defaultRouter;

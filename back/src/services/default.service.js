@@ -9,9 +9,14 @@ const defaultService = {
             where: {email:user.email}
         })
 
+        if (!dbUser) {
+            return {
+                status: "CONFLICT"
+            }
+        }
 
         const verifyPassword = await argon2.verify(dbUser.pwd, user.pwd)
-        if (verifyPassword == true) {
+        if (verifyPassword) {
             return {
                 status: "OK",
                 user: dbUser
@@ -50,9 +55,30 @@ const defaultService = {
                 status: "CONFLICT"
             }
         }
+    },
+
+    delete: async (email) => {
+        const dbUser = await db.user.findOne({
+            where: {email:email}
+        })
+
+        if (dbUser) {
+            await dbUser.destroy()
+            return {
+                status: "OK",
+                username: dbUser.username
+            }
+        } else {
+            return {
+                status: "CONFLICT"
+            }
+        }
 
 
     }
+
+
+
 }
 
 export default defaultService;

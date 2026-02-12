@@ -28,7 +28,7 @@ export function decodeToken(token) {
         const secretKey = process.env.JWT_SECRET;
 
         const options = {
-            issueur: process.env.JWT_ISSUER,
+            issuer: process.env.JWT_ISSUER,
             audience: process.env.JWT_AUDIENCE
         }
 
