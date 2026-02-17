@@ -45,10 +45,10 @@ const defaultService = {
                 tokens: 50,
                 bio: ""
             }
-            await db.user.create(newUser);
+            const createdUser = await db.user.create(newUser);
             return {
                 status: "OK",
-                user: newUser
+                user: createdUser
             }
         } else {
             return {

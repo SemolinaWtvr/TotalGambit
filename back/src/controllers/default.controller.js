@@ -11,8 +11,8 @@ const defaultController = {
             if (logged.status == "OK") {
                 const token = await generateToken({
                     id: logged.user.id,
-                    username: logged.user.username,
-                    role: logged.user.role
+                    role: logged.user.role,
+                    username: logged.user.username
                 });
                 res.status(200);
                 res.json({token});
@@ -30,10 +30,10 @@ const defaultController = {
 
     register: async (req, res) => {
         try {
-            const { password, username, email } = req.body;
+            const { username, password, email } = req.body;
             const role = "Admin"
 
-            if (!password || !username || !email) {
+            if (!username || !password || !email) {
                 res.status(400);
                 res.json({error: "Element(s) missing"});
                 return;
@@ -43,12 +43,13 @@ const defaultController = {
             const newUser = await defaultService.register(req.body, hashedPassword, role);
 
             if (newUser.status == "OK") {
-                res.status(200);
-                res.json({
+                const token = await generateToken({
+                    id: newUser.user.id,
                     role: newUser.user.role,
-                    username: newUser.user.username,
-                    tokens: newUser.user.tokens            
+                    username: newUser.user.username
                 });
+                res.status(200);
+                res.json({token});
                 return;
             } else if (newUser.status == "CONFLICT") {
                 res.status(400);

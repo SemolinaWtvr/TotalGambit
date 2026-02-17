@@ -1,8 +1,9 @@
 services:
+
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      SA_PASSWORD: TotalGambit123
+      SA_PASSWORD: ${DB_PASSWORD}
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
@@ -10,18 +11,21 @@ services:
   backend:
     build: .
     ports:
-      - "8080:8080"
+      - "${PORT}:8080"
     environment:
-      PORT: 8080
-      NODE_ENV: development
-      JWT_SECRET: "ptJWL3uEa_U9UqeQCONgileRn6uxzLCVTapwWaGgvC_IhDBeyr0n_kHlKwm9-_RcfoZ1sdWIkoETUzCUVAv4PQ"
-      JWT_ISSUER: localhost
-      JWT_AUDIENCE: localhost
-      DB_HOST: db
-      DB_PORT: 1433
-      DB_INSTANCENAME: ""
-      DB_DATABASE: Total_Gambit
-      DB_USERNAME: sa
-      DB_PASSWORD: TotalGambit123
+      PORT: ${PORT}
+      NODE_ENV: ${NODE_ENV}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ISSUER: ${JWT_ISSUER}
+      JWT_AUDIENCE: ${JWT_AUDIENCE}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_INSTANCENAME: ${DB_INSTANCENAME}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
       - db
+
+
+    ## Garder le .env et faire le lien (stp!)
